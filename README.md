@@ -47,3 +47,29 @@ $\beta_3\$ is third-order dispersion, and $\gamma\$ is the nonlinear Kerr coeffi
 [More on the NLSE](https://eng.libretexts.org/Bookshelves/Electrical_Engineering/Electro-Optics/Ultrafast_Optics_(Kaertner)/03%3A_Nonlinear_Pulse_Propagation/3.03%3A_The_Nonlinear_Schrodinger_Equation)
 
 The SSFM algorithm divides the fiber int many small propagation steps. Within each step the effects of dispersion and nonlinearity are applied separately. Dispersion effects must be calculated in the frequency domain, while nonlinear phase shifts are applied in the time domain. This approximates the physical evolution of the optical field along the fiber. 
+
+## SSFM Channel
+The function SSFM_channel simulates the propagation of the optical signal through a fiber optic channel using the Split-Step Fourier Method (SSFM) to incrementally solve the Nonlinear Schrödinger Equation (NLSE), which governs the behaviour of otical pulses in a fiber, accounting for attenuation, dispersion, and nonlinearities. 
+
+The function requires several inputs: 
+- $A_{in}$ - the optical field from the modulator function
+- $F_s$ - the sampling frequency of the signal
+- $L$ - the fiber length, in m
+- $N_z$ - the number of steps to simulate along the fiber
+- $fiber$ - a structure containing the fiber parameters ($\alpha\$ , $\beta_2\$ , $\beta_3\$ , $\gamma\$)
+
+The simulation is outlined in the following steps:
+1. The fiber is first divided into segments of length $dz = L/N_z$
+2. Nonlinear effects (Kerr phase shifts) are applied in the time domain
+3. Linear effects (attenuation and dispersion) are applied in the frequency domain using the FFT
+
+A symmetric split-step is used - a half nonlinear step, then a full linear step, and a half nonlinear step - to improve the accuracy of the calcuation.
+
+The function has two output parameters:
+- $A_{out}$ - the optical field at the output of the fiber, corresponding to the received signal
+- $A_z$ - the evolution of the pulse along the fiber, used for live visualization and analysis of the pulse distortion
+
+Using the live visualization window, we can physically interpret how the pulse changes as it travels:
+- The pulse spreads in the time domain due to optical dispersion ($\beta_2\$ and $\beta_3\$)
+- The amplitude-dependant phase shifts from $\gamma\$ create nonlinear distortions
+- The overall power of the pulse will decrease due to fiber attenuation, $\alpha\$

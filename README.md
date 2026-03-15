@@ -8,40 +8,41 @@ Modulation is the process of encoding information onto a physical carrier signal
 The binary information that is produced by the source generator cannot be directly transmitted as text or numbers. Instead, each bit of the binary encoding must be mapped to a property of the optical signal, be it the intensity, phase, or frequency. The receiver, on the other hand, performs demodulation, which attempts to recover the original bits from the distored signal after propagation through the fiber channel. 
 
 This project uses two different modulation schemes:
-	1. On-Off Keying (OOK)
-	OOK is the simplest form of intensity modulation. A binary 1 is represented by transmitted nonzero optical power, while a binary 0 is represented by transmitting zero optical power, or at least reducing the power significantly in accordance with the extinction ratio. 
-P(t) = \begin{cases} P_1, & \text{bit = 1} \\ P_0, & \text{bit = 0} \end{cases}
-	
-	where \(P_1\) and \(P_0\) represent the optical power levels for logical 1 and 0.
-	
-	2. Binary Frequency Shift Keying (BFSK)
-	BFSK encodes information using two different carrier frequencies. Instead of turning the signal on and off, the transmitter switches between two optical modulation frequencies that represent the bit value. 
-	$$
+1. On-Off Keying (OOK)
+OOK is the simplest form of intensity modulation. A binary 1 is represented by transmitted nonzero optical power, while a binary 0 is represented by transmitting zero optical power, or at least reducing the power significantly in accordance with the extinction ratio. 
+```math
+ P(t) = \begin{cases} P_1, & \text{bit = 1} \\ P_0, & \text{bit = 0} \end{cases}
+```
+where $P_1$ and $P_0$ represent the optical power levels for logical 1 and 0.
+
+2. Binary Frequency Shift Keying (BFSK)
+BFSK encodes information using two different carrier frequencies. Instead of turning the signal on and off, the transmitter switches between two optical modulation frequencies that represent the bit value. 
+```math
 	s(t) =
 	\begin{cases}
 	A \cos(2\pi f_1 t), & \text{bit = 1} \\
 	A \cos(2\pi f_2 t), & \text{bit = 0}
 	\end{cases}
-	$$
+```
 	
-	Since the information is encoded in the frequnecy rather than the amplitude, BFSK can be more robust to amplitude distortions and noise than OOK, but it typially requires more bandwidth and more complex detection methods. 
+Since the information is encoded in the frequnecy rather than the amplitude, BFSK can be more robust to amplitude distortions and noise than OOK, but it typially requires more bandwidth and more complex detection methods. 
 	
 ### Fiber Propagation Model: The Split Step Fourier Method (SSFM)
 
 To model the propagation of an optical signal along a fiber, we need to incrementally solve the Nonlinear Schrödinger Equation:
 
-$$
+```math
 \frac{\partial A}{\partial z}
 =
 -\frac{\alpha}{2}A
 - i\frac{\beta_2}{2}\frac{\partial^2 A}{\partial t^2}
 + \frac{\beta_3}{6}\frac{\partial^3 A}{\partial t^3}
 + i\gamma |A|^2 A
-$$
+```
 
-In this equation, \(A(z,t)\) is the complex envelope of the optical field, 
-\(\alpha\) is attenuation, \(\beta_2\) is group velocity dispersion, 
-\(\beta_3\) is third-order dispersion, and \(\gamma\) is the nonlinear Kerr coefficient.
+In this equation, $A(z,t)$ is the complex envelope of the optical field, 
+$\alpha\$ is attenuation, $\beta_2\$ is group velocity dispersion, 
+$\beta_3\$ is third-order dispersion, and $\gamma\$ is the nonlinear Kerr coefficient.
 
 [More on the NLSE](https://eng.libretexts.org/Bookshelves/Electrical_Engineering/Electro-Optics/Ultrafast_Optics_(Kaertner)/03%3A_Nonlinear_Pulse_Propagation/3.03%3A_The_Nonlinear_Schrodinger_Equation)
 

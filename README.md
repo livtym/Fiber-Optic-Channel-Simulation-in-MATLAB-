@@ -10,13 +10,11 @@ The binary information that is produced by the source generator cannot be direct
 This project uses two different modulation schemes:
 	1. On-Off Keying (OOK)
 	OOK is the simplest form of intensity modulation. A binary 1 is represented by transmitted nonzero optical power, while a binary 0 is represented by transmitting zero optical power, or at least reducing the power significantly in accordance with the extinction ratio. 
-	$$
-	P(t) =
+	$$ P(t) =
 	\begin{cases}
 	P_1, & \text{bit = 1} \\
 	P_0, & \text{bit = 0}
-	\end{cases}
-	$$
+	\end{cases} $$
 	
 	where \(P_1\) and \(P_0\) represent the optical power levels for logical 1 and 0.
 	
